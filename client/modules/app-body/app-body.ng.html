@@ -1,0 +1,9 @@
+<main>
+    <h2>Available workspaces ({{data.length}}):</h2>
+
+    <ul>
+        <li ng-repeat="workspace in data">{{workspace.name}}</li>
+    </ul>
+
+    <button ng-click="getWorkspaces()">Get workspaces</button>
+</main>
