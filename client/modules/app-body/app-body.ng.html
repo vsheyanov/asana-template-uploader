@@ -1,9 +1,34 @@
 <main>
-    <h2>Available workspaces ({{data.length}}):</h2>
+    <h2>Available workspaces ({{workspaces.length}}):</h2>
 
     <ul>
-        <li ng-repeat="workspace in data">{{workspace.name}}</li>
+        <li ng-repeat="workspace in workspaces" ng-click="selectWorkspace(workspace)">{{workspace.name}}</li>
     </ul>
 
     <button ng-click="getWorkspaces()">Get workspaces</button>
+
+    <h2>Available projects ({{projects.length}}):</h2>
+
+    <ul>
+        <li ng-repeat="project in projects" ng-click="selectProject(project)">{{project.name}}</li>
+    </ul>
+
+    <button ng-click="getProjects()">Get projects</button>
+
+    <div>
+        <textarea ng-model="projectJson">
+
+        </textarea>
+    </div>
+
+    <div>
+        <label for="selectFile">Select file</label>
+        <input id="selectFile" type="file" on-read-file="onFileSelected($fileContent)">
+    </div>
+
+    <div>
+        <p>Selected workspace: {{selectedWorkspace.name}}</p>
+        <p>Selected project: {{selectedProject.name}}</p>
+        <button ng-click="uploadProject()">Upload project to Asana</button>
+    </div>
 </main>

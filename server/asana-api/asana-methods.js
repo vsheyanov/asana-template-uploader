@@ -11,10 +11,23 @@ Meteor.methods({
         var future = new FutureClazz();
 
         asanaClient.workspaces.findAll().then(function(result){
-            console.log(result.data);
             future.return(result.data);
         });
 
         return future.wait();
+    },
+    'asanaGetProjects' : function(workspaceId){
+        var FutureClazz = Meteor.npmRequire('fibers/future');
+
+        var future = new FutureClazz();
+
+        asanaClient.projects.findByWorkspace(workspaceId).then(function(result){
+            future.return(result.data);
+        });
+
+        return future.wait();
+    },
+    'asanaUploadWorkspace' : function(workspaceId, projectId){
+        asanaClient.tasks.create({workspace: workspaceId, projects: [projectId], name: 'test 22:'});
     }
 });
