@@ -2,7 +2,7 @@
  * Created by Victor on 23.11.2015.
  */
 angular.module('asana-template-uploader')
-    .directive('appBody', function (){
+    .controller('AppBodyController', ['$scope', function($scope){
 
         function parseContent(textContent){
             var json = Papa.parse(textContent);
@@ -24,57 +24,68 @@ angular.module('asana-template-uploader')
             this.notes = notes;
         }
 
-        var controller = ['$scope', function($scope){
+        $scope.workspaces = [];
+        $scope.projects = [];
 
-            $scope.workspaces = [];
-            $scope.projects = [];
+        $scope.selectedWorkspace = {};
+        $scope.selectedProject = {};
 
-            $scope.selectedWorkspace = {};
-            $scope.selectedProject = {};
+        $scope.getWorkspaces = function(){
+            console.log('getting workspaces');
 
-            $scope.getWorkspaces = function(){
-                console.log('getting workspaces');
-
-                Meteor.call('asanaGetWorkspaces', function(error, result){
-                    $scope.$apply(function(){
-                        $scope.workspaces.push.apply($scope.workspaces, result);
-                    });
+            Meteor.call('asanaGetWorkspaces', function(error, result){
+                $scope.$apply(function(){
+                    $scope.workspaces.push.apply($scope.workspaces, result);
                 });
-            };
+            });
+        };
 
-            $scope.getProjects = function(){
-                console.log('getting projects');
+        $scope.getProjects = function(){
+            console.log('getting projects');
 
-                Meteor.call('asanaGetProjects', $scope.selectedWorkspace.id, function(error, result){
-                    $scope.$apply(function(){
-                        $scope.projects.push.apply($scope.projects, result);
-                    });
+            Meteor.call('asanaGetProjects', $scope.selectedWorkspace.id, function(error, result){
+                $scope.$apply(function(){
+                    $scope.projects.push.apply($scope.projects, result);
                 });
-            };
+            });
+        };
 
-            $scope.selectWorkspace = function(workspace){
-                $scope.selectedWorkspace = workspace;
+        $scope.selectWorkspace = function(workspace){
+            $scope.selectedWorkspace = workspace;
 
-                $scope.getProjects();
-            };
+            $scope.getProjects();
+        };
 
-            $scope.selectProject = function(project){
-                $scope.selectedProject = project;
-            };
+        $scope.selectProject = function(project){
+            $scope.selectedProject = project;
+        };
 
-            $scope.uploadProject = function(){
-                Meteor.call('asanaUploadWorkspace',
-                    $scope.selectedWorkspace.id,
-                    $scope.newProjectName,
-                    $scope.selectedTasks);
-            };
+        $scope.uploadProject = function(){
+            Meteor.call('asanaUploadWorkspace',
+                $scope.selectedWorkspace.id,
+                $scope.newProjectName,
+                $scope.selectedTasks);
+        };
 
-            $scope.onFileSelected = function($fileContent){
-                console.log($fileContent);
+        $scope.onFileSelected = function($fileContent){
+            console.log($fileContent);
 
-                $scope.selectedTasks = parseContent($fileContent);
-            }
-        }];
+            $scope.selectedTasks = parseContent($fileContent);
+        }
+
+        $scope.getWorkspaces();
+    }])
+
+
+
+
+
+    /*
+    .directive('appBody', function (){
+
+
+
+        var controller =
         return {
             restrict: 'E',
             templateUrl : 'client/modules/app-body/app-body.ng.html',
@@ -87,7 +98,7 @@ angular.module('asana-template-uploader')
                 }
             }
     }});
-
+*/
 angular.module('asana-template-uploader').directive('onReadFile', function ($parse) {
     return {
         restrict: 'A',
