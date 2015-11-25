@@ -27,7 +27,18 @@ Meteor.methods({
 
         return future.wait();
     },
-    'asanaUploadWorkspace' : function(workspaceId, newProjectName, data){
+    'asanaCreateTemplate' : function(templateName, templateDescription, isPrivate, data){
+        Templates.insert({
+            ownerId     : "victor",
+            name        : templateName,
+            description : templateDescription,
+            isPrivate   : isPrivate,
+            data        : data
+        });
+    },
+    'asanaUploadWorkspace' : function(workspaceId, newProjectName, templateId){
+        //TODO add templateLookup
+
         asanaClient.projects.create({workspace: workspaceId, name: newProjectName})
             .then(function(result, error){
                 if (error){

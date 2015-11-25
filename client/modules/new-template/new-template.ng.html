@@ -1,0 +1,27 @@
+<h2>New Template</h2>
+
+<div>
+    <div>
+        <label for="templateName">Template name:</label>
+        <input type="text" id="templateName" ng-model="templateName">
+    </div>
+
+    <div>
+        <label for="templateDescription">Template description:</label>
+        <input type="text" id="templateDescription" ng-model="templateDescription">
+    </div>
+
+    <div>
+        <label for="isPrivate">Private:</label>
+        <input type="checkbox" id="isPrivate" ng-model="isPrivate">
+    </div>
+
+    <div>
+        <label for="selectFile">Select file</label>
+        <input id="selectFile" type="file" on-read-file="onFileSelected($fileContent)">
+    </div>
+
+    <div>
+        <button ng-click="createTemplate()">Create template</button>
+    </div>
+</div>

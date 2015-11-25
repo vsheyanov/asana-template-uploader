@@ -1,5 +1,11 @@
 <main>
     <div>
+        <h2>Available templates ({{templates.length}}):</h2>
+        <ul>
+            <li ng-repeat="template in templates"><a href="/template/{{template._id}}">{{template.name}}</a></li>
+        </ul>
+    </div>
+    <div>
         <h2>Available workspaces ({{workspaces.length}}):</h2>
 
         <ul>
@@ -18,11 +24,6 @@
     <div>
         <label for="projectName">Template name:</label>
         <input type="text" id="projectName" ng-model="newProjectName">
-    </div>
-
-    <div>
-        <label for="selectFile">Select file</label>
-        <input id="selectFile" type="file" on-read-file="onFileSelected($fileContent)">
     </div>
 
     <div>
