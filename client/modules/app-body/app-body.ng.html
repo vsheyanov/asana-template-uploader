@@ -1,24 +1,23 @@
 <main>
-    <h2>Available workspaces ({{workspaces.length}}):</h2>
+    <div>
+        <h2>Available workspaces ({{workspaces.length}}):</h2>
 
-    <ul>
-        <li ng-repeat="workspace in workspaces" ng-click="selectWorkspace(workspace)">{{workspace.name}}</li>
-    </ul>
-
-    <button ng-click="getWorkspaces()">Get workspaces</button>
-
-    <h2>Available projects ({{projects.length}}):</h2>
-
-    <ul>
-        <li ng-repeat="project in projects" ng-click="selectProject(project)">{{project.name}}</li>
-    </ul>
-
-    <button ng-click="getProjects()">Get projects</button>
+        <ul>
+            <li ng-repeat="workspace in workspaces" ng-click="selectWorkspace(workspace)">{{workspace.name}}</li>
+        </ul>
+    </div>
 
     <div>
-        <textarea ng-model="projectJson">
+        <h2>Available projects ({{projects.length}}):</h2>
 
-        </textarea>
+        <ul>
+            <li ng-repeat="project in projects" ng-click="selectProject(project)">{{project.name}}</li>
+        </ul>
+    </div>
+
+    <div>
+        <label for="projectName">Template name:</label>
+        <input type="text" id="projectName" ng-model="newProjectName">
     </div>
 
     <div>

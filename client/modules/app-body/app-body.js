@@ -5,14 +5,23 @@ angular.module('asana-template-uploader')
     .directive('appBody', function (){
 
         function parseContent(textContent){
-            var rows = textContent.split('\n');
-            var headers = rows[0].split(',');
-            console.log("Header: " + headers.toString());
+            var json = Papa.parse(textContent);
+
+
+            var nameIndex  = json.data[0].indexOf("Name");
+            var notesIndex  = json.data[0].indexOf("Notes");
+
+            var tasks = [];
+
+            for (var i = 1; i < json.data.length; i++){
+                tasks.push(new Task(json.data[i][nameIndex], json.data[i][notesIndex]));
+            }
+            return tasks;
         }
 
-        function Task(name, description){
+        function Task(name, notes){
             this.name = name;
-            this.description = description;
+            this.notes = notes;
         }
 
         var controller = ['$scope', function($scope){
@@ -54,19 +63,29 @@ angular.module('asana-template-uploader')
             };
 
             $scope.uploadProject = function(){
-                Meteor.call('asanaUploadWorkspace', $scope.selectedWorkspace.id, $scope.selectedProject.id);
+                Meteor.call('asanaUploadWorkspace',
+                    $scope.selectedWorkspace.id,
+                    $scope.newProjectName,
+                    $scope.selectedTasks);
             };
 
             $scope.onFileSelected = function($fileContent){
                 console.log($fileContent);
 
-                parseContent($fileContent);
+                $scope.selectedTasks = parseContent($fileContent);
             }
         }];
         return {
             restrict: 'E',
             templateUrl : 'client/modules/app-body/app-body.ng.html',
-            controller: controller
+            controller: controller,
+            compile: function(){
+                return {
+                    post: function($scope){
+                        $scope.getWorkspaces();
+                    }
+                }
+            }
     }});
 
 angular.module('asana-template-uploader').directive('onReadFile', function ($parse) {

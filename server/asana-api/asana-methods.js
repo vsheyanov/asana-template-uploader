@@ -27,7 +27,28 @@ Meteor.methods({
 
         return future.wait();
     },
-    'asanaUploadWorkspace' : function(workspaceId, projectId){
-        asanaClient.tasks.create({workspace: workspaceId, projects: [projectId], name: 'test 22:'});
+    'asanaUploadWorkspace' : function(workspaceId, newProjectName, data){
+        asanaClient.projects.create({workspace: workspaceId, name: newProjectName})
+            .then(function(result, error){
+                if (error){
+                    throw new Meteor.Error('Cannot create project');
+                }
+
+                function createTasks(){
+                    var task = data.pop();
+
+                    asanaClient.tasks.create({
+                        workspace: workspaceId,
+                        projects: [result.id],
+                        name: task.name,
+                        notes: task.notes
+                    }).then(function(result, error) {
+                        if (data.length > 0)
+                            createTasks();
+                    })
+                }
+
+                createTasks();
+            });
     }
 });
