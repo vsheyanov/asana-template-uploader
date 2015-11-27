@@ -2,7 +2,7 @@
  * Created by Victor on 23.11.2015.
  */
 angular.module('asana-template-uploader')
-    .controller('AppBodyController', ['$scope', '$meteor', function($scope, $meteor){
+    .controller('AppBodyController', ['$scope', '$meteor' , function($scope, $meteor){
 
         $scope.templates = $meteor.collection(Templates).subscribe('templates');
 
@@ -49,5 +49,4 @@ angular.module('asana-template-uploader')
                 $scope.selectedTasks);
         };
 
-        $scope.getWorkspaces();
     }]);

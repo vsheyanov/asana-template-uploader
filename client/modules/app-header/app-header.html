@@ -1,5 +1,5 @@
 <header>
     <a href="/app">Home</a>
     <a href="/new">Create</a>
-    <button ng-click="login()">Login with Asana</button>
+    <button ng-hide="$root.currentUser" ng-click="login()">Login with Asana</button>
 </header>

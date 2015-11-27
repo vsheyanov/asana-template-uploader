@@ -3,8 +3,12 @@
  */
 Meteor.methods({
     'asanaGetWorkspaces' : function(){
+        if (!Meteor.user()){
+            console.log("Not logged in!");
+            return;
+        }
 
-        console.log('received request');
+        console.log('received request: ' + Meteor.userId());
 
         var FutureClazz = Meteor.npmRequire('fibers/future');
 
@@ -18,7 +22,6 @@ Meteor.methods({
     },
     'asanaGetProjects' : function(workspaceId){
         var FutureClazz = Meteor.npmRequire('fibers/future');
-
         var future = new FutureClazz();
 
         asanaClient.projects.findByWorkspace(workspaceId).then(function(result){
@@ -61,5 +64,51 @@ Meteor.methods({
 
                 createTasks();
             });
+    },
+    'asanaAuthCodeReceived': function(authCode){
+        console.log('method called: asanaAuthCodeReceived');
+        var FutureClazz = Meteor.npmRequire('fibers/future');
+        var future = new FutureClazz();
+
+        createClient();
+
+        console.log("auto code on server", authCode);
+        asanaClient.app.accessTokenFromCode(authCode).then(Meteor.bindEnvironment(
+            function(credentials) {
+                console.log('sending: ' + credentials.data.id);
+                future.return(credentials.data.id);
+
+                loginService.saveAuthCredentials(credentials);
+            }
+        ));
+
+        return future.wait();
+
+
+
+        /*var accessAsyn = Meteor.wrapAsync(asanaClient.app.accessTokenFromCode, asanaClient.app);
+
+        var credentials = accessAsyn(authCode);
+
+        console.log('sending: ' + credentials.data.id);
+
+        return credentials.data.id;*/
+    },
+    'logInUsingMeteorUserId': function(){
+        console.log('trying to log in using meteor user id: ' + Meteor.userId());
+        return loginService.logInUsingMeteorUserId();
     }
 });
+
+asanaClient = null;
+
+function createClient() {
+
+    var asana = Meteor.npmRequire('asana');
+
+    asanaClient = asana.Client.create({
+        clientId: Meteor.settings.clientId,
+        clientSecret: Meteor.settings.clientSecret,
+        redirectUri: 'http://localhost:3000/authRedirect'
+    });
+}

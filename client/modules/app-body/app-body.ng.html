@@ -7,10 +7,10 @@
     </div>
     <div>
         <h2>Available workspaces ({{workspaces.length}}):</h2>
-
         <ul>
             <li ng-repeat="workspace in workspaces" ng-click="selectWorkspace(workspace)">{{workspace.name}}</li>
         </ul>
+        <button ng-click="getWorkspaces()">Get</button>
     </div>
 
     <div>
