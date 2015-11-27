@@ -52,8 +52,13 @@ loginService = (function(){
 
         console.log('Asana user found by meteor user id');
 
-        //TODO check token expiration
-        asanaClient.useOauth({ credentials: asanaUser.access_token });
+        var credentials = {
+            refresh_token: asanaUser.refresh_token
+        };
+
+        asanaClient.useOauth({
+            credentials: credentials
+        });
 
         return true;
     }
