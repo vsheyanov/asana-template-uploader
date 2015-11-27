@@ -1,27 +1,45 @@
-<h2>New Template</h2>
+<md-card flex-gt-lg="70" flex-gt-md="80" flex-gt-sm="90">
+    <md-card-content>
+        <h2>New Template</h2>
 
-<div>
-    <div>
-        <label for="templateName">Template name:</label>
-        <input type="text" id="templateName" ng-model="templateName">
-    </div>
+        <div>
+            <div>
+                <md-input-container aria-label="Template name" flex>
+                    <label>Template name</label>
+                    <input ng-model="templateName">
+                </md-input-container>
+            </div>
 
-    <div>
-        <label for="templateDescription">Template description:</label>
-        <input type="text" id="templateDescription" ng-model="templateDescription">
-    </div>
+            <div>
+                <md-input-container aria-label="Template description" flex>
+                    <label>Template description</label>
+                    <textarea ng-model="templateDescription" columns="1" md-maxlength="250"></textarea>
+                </md-input-container>
+            </div>
 
-    <div>
-        <label for="isPrivate">Private:</label>
-        <input type="checkbox" id="isPrivate" ng-model="isPrivate">
-    </div>
+            <div>
+                <md-checkbox ng-model="isPrivate" aria-label="Private">
+                    Private
+                </md-checkbox>
+            </div>
 
-    <div>
-        <label for="selectFile">Select file</label>
-        <input id="selectFile" type="file" on-read-file="onFileSelected($fileContent)">
-    </div>
+            <div>
+                <input id="selectFile" type="file" on-read-file="onFileSelected($fileContent)"
+                       class="selectTemplateFile">
 
-    <div>
-        <button ng-click="createTemplate()">Create template</button>
-    </div>
-</div>
+                <md-button>
+                    <label for="selectFile">Select file</label>
+                </md-button>
+            </div>
+
+            <div>
+                <md-button aria-label="Create template" ng-click="createTemplate()"
+                           class="md-raised">Create template</md-button>
+            </div>
+
+            <div>
+                Teamplate preview:
+            </div>
+        </div>
+    </md-card-content>
+</md-card>

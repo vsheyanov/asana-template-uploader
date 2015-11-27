@@ -1,34 +1,36 @@
-<main>
-    <div>
-        <h2>Available templates ({{templates.length}}):</h2>
-        <ul>
-            <li ng-repeat="template in templates"><a href="/template/{{template._id}}">{{template.name}}</a></li>
-        </ul>
-    </div>
-    <div>
-        <h2>Available workspaces ({{workspaces.length}}):</h2>
-        <ul>
-            <li ng-repeat="workspace in workspaces" ng-click="selectWorkspace(workspace)">{{workspace.name}}</li>
-        </ul>
-        <button ng-click="getWorkspaces()">Get</button>
-    </div>
+<md-card flex-gt-lg="70" flex-gt-md="80" flex-gt-sm="90">
+    <md-card-content>
+        <div>
+            <h2>Available templates ({{templates.length}}):</h2>
+            <ul>
+                <li ng-repeat="template in templates"><a href="/template/{{template._id}}">{{template.name}}</a></li>
+            </ul>
+        </div>
+        <div>
+            <h2>Available workspaces ({{workspaces.length}}):</h2>
+            <ul>
+                <li ng-repeat="workspace in workspaces" ng-click="selectWorkspace(workspace)">{{workspace.name}}</li>
+            </ul>
+            <button ng-click="getWorkspaces()">Get</button>
+        </div>
 
-    <div>
-        <h2>Available projects ({{projects.length}}):</h2>
+        <div>
+            <h2>Available projects ({{projects.length}}):</h2>
 
-        <ul>
-            <li ng-repeat="project in projects" ng-click="selectProject(project)">{{project.name}}</li>
-        </ul>
-    </div>
+            <ul>
+                <li ng-repeat="project in projects" ng-click="selectProject(project)">{{project.name}}</li>
+            </ul>
+        </div>
 
-    <div>
-        <label for="projectName">Template name:</label>
-        <input type="text" id="projectName" ng-model="newProjectName">
-    </div>
+        <div>
+            <label for="projectName">Template name:</label>
+            <input type="text" id="projectName" ng-model="newProjectName">
+        </div>
 
-    <div>
-        <p>Selected workspace: {{selectedWorkspace.name}}</p>
-        <p>Selected project: {{selectedProject.name}}</p>
-        <button ng-click="uploadProject()">Upload project to Asana</button>
-    </div>
-</main>
+        <div>
+            <p>Selected workspace: {{selectedWorkspace.name}}</p>
+            <p>Selected project: {{selectedProject.name}}</p>
+            <button ng-click="uploadProject()">Upload project to Asana</button>
+        </div>
+    </md-card-content>
+</md-card>
