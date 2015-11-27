@@ -1,0 +1,58 @@
+.iconWrapper{
+    width: 25px;
+    height: 25px;
+    border: 1px solid #B9BCC0;
+    border-radius: 50%;
+
+    fill: #E1E2E4;
+
+    display: inline-block;
+}
+
+.iconWrapper:hover{
+    border: 1px solid #3bf7d1;
+    cursor: pointer;
+}
+
+.svgIcon {
+    border-color: #B9BCC0;
+    background-color: transparent;
+    color: #E1E2E4;
+    fill: #E1E2E4;
+
+    width: 20px;
+    height: 20px;
+
+    position: relative;
+    left: 3px;
+    top: 3px;
+}
+
+.svgIcon:hover{
+    fill: #3bf7d1;
+}
+
+.taskpreview-list-item{
+    list-style: none;
+}
+
+.preview-row{
+    margin-bottom: 5px;
+}
+
+.preview-task-row{
+    padding: 5px;
+    border: 1px solid rgba(220, 220, 220, 0);
+    background-clip: padding-box;
+    border-radius: 3px;
+}
+
+.preview-task-row:hover{
+    border: 1px solid rgb(220, 220, 220);
+}
+
+.preview-task-header{
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+

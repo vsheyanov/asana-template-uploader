@@ -1,0 +1,15 @@
+<div>
+    <h2>Template preview:</h2>
+    <ul>
+        <li class="taskpreview-list-item" ng-repeat="task in tasks">
+            <div class="preview-row" ng-class="task.name.substr(task.name.length-1, 1) == ':' ? 'preview-task-header' : 'preview-task-row'">
+                <div class="iconWrapper" ng-if="task.name.substr(task.name.length-1, 1) != ':'">
+                    <svg class="svgIcon" title="checkmark" viewBox="0 0 35 35">
+                        <polygon points="30,5.077 26,2 11.5,22.5 4.5,15.5 1,19 12,30"></polygon>
+                    </svg>
+                </div>
+                {{task.name}}
+            </div>
+        </li>
+    </ul>
+</div>

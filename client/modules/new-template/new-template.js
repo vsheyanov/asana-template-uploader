@@ -29,6 +29,8 @@ angular.module('asana-template-uploader')
             console.log($fileContent);
 
             $scope.selectedTasks = parseContent($fileContent);
+
+
         };
 
         $scope.createTemplate = function(){
